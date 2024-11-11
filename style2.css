@@ -27,3 +27,16 @@
     width: 100px;
     height: 100px;
 }
+
+.cards {
+    margin-top: 7%;
+}
+
+.card-individual {
+    margin-right: 40px;
+    transition: all .2s ease-in-out; 
+}
+
+.card-individual:hover {
+    transform: scale(1.1); 
+}
