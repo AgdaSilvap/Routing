@@ -32,7 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background: url('img/Rectangle\ \(1\).png') no-repeat center center;
     background-size: cover;
 }
@@ -56,8 +56,14 @@
     backdrop-filter: blur(10px); /* Efeito de desfoque */
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Bordas suaves */
+    position: fixed;
 }
 
+.container-secundario {
+    background-color: white;
+    margin-top: 50px;
+    position: static;
+}
 
 .div-login {
     padding: 3rem;
@@ -250,3 +256,4 @@ a:active {
     width: 100%;
     padding-left: 1.5rem; /* Empurra o conteúdo interno para a direita */
 }
+
