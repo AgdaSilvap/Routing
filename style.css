@@ -140,3 +140,12 @@
 a {
     text-decoration: none;
 }
+
+.ambiente-usuario {
+    display: flex;
+    overflow-x: hidden;
+}
+
+
+
+
