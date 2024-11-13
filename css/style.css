@@ -149,5 +149,33 @@ a {
 }
 
 
+.botao-suporte {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    letter-spacing: 1px;
+    text-align: center;    
+}
 
-
+.div-suporte {
+    padding: 3rem;
+    border-radius: 15px;
+    text-align: left;
+    max-width: 350px;
+    height: 500px;
+    width: 90%; /* Responsivo */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.4rem;
+    position: fixed; 
+    top: 40px;       /* Distância do topo */
+    left: 20px;      /* Distância da borda esquerda */
+}
