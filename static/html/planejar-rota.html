@@ -30,6 +30,35 @@
           </nav>
     </header>
 
+    <div class="div-login">
+
+      <label for="codigo-acesso" class="poppins-medium">Origem da Entrega</label>
+      <select name="cars" id="cars" class="input-campo">
+          <option value="volvo">Perim - Gilberto Machado</option>
+          <option value="saab">Perim - Jones dos Santos Neves</option>
+          <option value="mercedes">Perim - Guandu</option>
+          <option value="audi">Perim Center</option>
+      </select>
+  
+      <div id="pontos-entrega">
+          <!-- Contêiner inicial para Ponto A -->
+          <div style="margin-bottom: 10px;">
+              <label for="ponto-a" class="poppins-medium" style="margin-bottom: 5px; display: block;">Ponto A</label>
+              <div style="display: flex; align-items: center;">
+                  <input type="text" id="ponto-a" name="ponto-a" class="input-campo" placeholder="Digite o primeiro ponto de entrega" style="flex: 1;">
+                  <a href="#" class="botao-mais" id="adicionar-ponto" style="margin-left: 7px;">
+                      <img src="/static/img/plus.png" style="width: 20px; margin-bottom: 10px">
+                  </a>
+              </div>
+          </div>
+      </div>
+  
+      <button type="button" class="botao-acessar poppins-bold">
+          <a href="/ambiente_usuario" class="text-white text-decoration-none poppins-medium">GERAR ROTA</a>
+      </button>
+  
+  </div>
+
   <div id="map" style="height: 543px; width: 50%;" class="align-content-end position-absolute top-1 end-0 pe-2">
     <script>
       // Inicializar o mapa com as coordenadas da cidade de Cachoeiro de Itapemirim
@@ -48,9 +77,57 @@
         routeWhileDragging: true
       }).addTo(map);
     </script>
-    
   </div>
 
+  <script>
+    const pontosEntrega = document.getElementById('pontos-entrega');
+
+    function atualizarRotulos() {
+        const pontos = document.querySelectorAll('.ponto-entrega');
+        pontos.forEach((ponto, index) => {
+            const letra = String.fromCharCode(66 + index); 
+            const label = ponto.querySelector('label');
+            label.textContent = `Ponto ${letra}`;
+            const input = ponto.querySelector('input');
+            input.id = `ponto-${letra}`;
+            input.name = `ponto-${letra}`;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const primeiroPonto = document.querySelector('#pontos-entrega .ponto-entrega');
+        if (primeiroPonto) {
+            primeiroPonto.querySelector('label').textContent = 'Ponto A';
+        }
+    });
+
+    document.getElementById('adicionar-ponto').addEventListener('click', function (event) {
+        event.preventDefault(); 
+
+        const novoPonto = document.createElement('div');
+        novoPonto.style.marginBottom = '10px'; 
+        novoPonto.classList.add('ponto-entrega'); 
+        novoPonto.innerHTML = `
+            <label class="poppins-medium" style="margin-bottom: 5px; display: block;"></label>
+            <div style="display: flex; align-items: center;">
+                <input type="text" class="input-campo" placeholder="Digite o ponto de entrega" style="flex: 1;">
+                <a href="#" class="botao-mais botao-remover" style="margin-left: 7px;">
+                    <img src="/static/img/minus.png" style="width: 20px; margin-bottom: 10px">
+                </a>
+            </div>
+        `;
+
+        pontosEntrega.appendChild(novoPonto);
+        atualizarRotulos();
+
+        const botaoRemover = novoPonto.querySelector('.botao-remover');
+        botaoRemover.addEventListener('click', function (event) {
+            event.preventDefault(); 
+            pontosEntrega.removeChild(novoPonto); 
+            atualizarRotulos(); 
+        });
+    }); 
+  </script>
 
 </body>
 
