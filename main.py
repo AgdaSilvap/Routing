@@ -49,3 +49,23 @@ async def planejar_rota():
 @app.get("/dashboard")
 async def dashboard():
     return FileResponse("static/html/dashboard.html")
+
+# Rota para a página de Suporte (suporte.html)
+@app.get("/suporte")
+async def suporte():
+    return FileResponse("static/html/suporte.html")
+
+# Rota para a página de Entredas do Dia (entregas.html)
+@app.get("/entregas")
+async def entregas():
+    return FileResponse("static/html/entregas.html")
+
+# Rota para a página de Confirmação de Orçamento (confirmacao-orcamento.html)
+@app.get("/confirm_orcamento")
+async def confirm_orcamento():
+    return FileResponse("static/html/confirmacao-orcamento.html")
+
+# Rota para a página de Confirmação de Suporte (confirmacao-suporte.html)
+@app.get("/confirm_suporte")
+async def confirm_suporte():
+    return FileResponse("static/html/confirmacao-suporte.html")
