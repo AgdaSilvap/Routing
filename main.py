@@ -44,3 +44,8 @@ async def ambiente_usuario():
 @app.get("/planejar_rota")
 async def planejar_rota():
     return FileResponse("static/html/planejar-rota.html")
+
+# Rota para a página de Dashboard (dashboard.html)
+@app.get("/dashboard")
+async def dashboard():
+    return FileResponse("static/html/dashboard.html")
