@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa com Leaflet Routing Machine</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+</head>
+<body>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+
+  <script>
+    // Inicializar o mapa com as coordenadas da cidade de Cachoeiro de Itapemirim
+    const map = L.map('map').setView([-20.318929, -41.130525], 13); // Coordenadas para Cachoeiro de Itapemirim
+
+    // Adicionar a camada de tiles (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Criar a rota com o Leaflet Routing Machine
+    L.Routing.control({
+      waypoints: [
+        L.latLng(-20.318929, -41.130525), // Praça Jerônimo Monteiro (Ponto inicial)
+        L.latLng(-20.309635, -41.130933), // Museu Ferroviário (Ponto intermediário)
+        L.latLng(-20.258606, -41.071551)  // Cachoeira da Fumaça (Ponto final)
+      ],
+      routeWhileDragging: true
+    }).addTo(map);
+  </script>
+</body>
+</html>
