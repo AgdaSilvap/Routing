@@ -14,21 +14,21 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-  <script src="../planning-routes.js"></script>
+  <script src="../js/planning-routes.js"></script>
 </head>
 
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light ps-2"
       style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); user-select: none">
-      <a class="navbar-brand poppins-bold" href="/ambiente_usuario">Área do Cliente</a>
+      <a class="navbar-brand poppins-bold" href="./ambiente-usuario.html">Área do Cliente</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link poppins-medium" href="/">Home</span></a>
+            <a class="nav-link poppins-medium" href="index.html">Home</span></a>
           </li>
         </ul>
       </div>
@@ -51,7 +51,7 @@
     <div id="pontos-entrega">
       <!-- Os pontos iniciais e os novos serão adicionados aqui -->
       <div class="ponto-entrega" style="margin-bottom: 10px;">
-        
+
       </div>
     </div>
 
@@ -60,9 +60,7 @@
       <img src="../img/plus.png" style="width: 20px; margin-bottom: 10px">
     </a>
 
-    <button type="button" class="botao-acessar poppins-bold">
-      <a href="/ambiente_usuario" class="text-white text-decoration-none poppins-medium">GERAR ROTA</a>
-    </button>
+    <button type="button" id="gerar-rota" class="botao-acessar poppins-bold">GERAR ROTA</button>
 
   </div>
 
@@ -76,68 +74,22 @@
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
 
-      // Criar a rota com o Leaflet Routing Machine
-      L.Routing.control({
-        waypoints: [
-          L.latLng(-20.8494, -41.1132),
-        ],
-        routeWhileDragging: true
-      }).addTo(map);
+      document.getElementById('gerar-rota').addEventListener('click', (e) => {
+        // Criar a rota com o Leaflet Routing Machine
+        L.Routing.control({
+          waypoints: [
+            L.latLng(-20.844900481962885, -41.12509320239862), 
+            L.latLng(-20.8545574, -41.0989556), 
+            L.latLng(-20.75316038887401, -41.18741078303875),  
+            L.latLng(-20.84356295336726, -41.15608775756998)  
+          ],
+          routeWhileDragging: true
+        }).addTo(map);
+      });
     </script>
   </div>
 
-  <script>
-    const pontosEntrega = document.getElementById('pontos-entrega');
 
-    function atualizarRotulos() {
-      const pontos = document.querySelectorAll('.ponto-entrega');
-      pontos.forEach((ponto, index) => {
-        const letra = String.fromCharCode(66 + index);
-        const label = ponto.querySelector('label');
-        label.textContent = `Ponto ${letra}`;
-        const input = ponto.querySelector('input');
-        input.id = `ponto-${letra}`;
-        input.name = `ponto-${letra}`;
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      await carregarEnderecos();
-      const primeiroPonto = document.querySelector('#pontos-entrega .ponto-entrega');
-      if (primeiroPonto) {
-        atualizarRotulos();
-        primeiroPonto.querySelector('label').textContent = 'Ponto A';
-      }
-    });
-
-
-    document.getElementById('adicionar-ponto').addEventListener('click', function (event) {
-      event.preventDefault();
-
-      const novoPonto = document.createElement('div');
-      novoPonto.style.marginBottom = '10px';
-      novoPonto.classList.add('ponto-entrega');
-      novoPonto.innerHTML = `
-            <label class="poppins-medium" style="margin-bottom: 5px; display: block;"></label>
-            <div style="display: flex; align-items: center;">
-                <input type="text" class="input-campo" placeholder="Digite o ponto de entrega" style="flex: 1;">
-                <a href="#" class="botao-mais botao-remover" style="margin-left: 7px;">
-                    <img src="../img/minus.png" style="width: 20px; margin-bottom: 10px">
-                </a>
-            </div>
-        `;
-
-      pontosEntrega.appendChild(novoPonto);
-      atualizarRotulos();
-
-      const botaoRemover = novoPonto.querySelector('.botao-remover');
-      botaoRemover.addEventListener('click', function (event) {
-        event.preventDefault();
-        pontosEntrega.removeChild(novoPonto);
-        atualizarRotulos();
-      });
-    }); 
-  </script>
 
 </body>
 
