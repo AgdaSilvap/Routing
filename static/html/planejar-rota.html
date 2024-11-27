@@ -1,78 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Routing</title>
-    <link rel="stylesheet" href="./static/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routing</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <script src="../planning-routes.js"></script>
 </head>
 
 <body>
-    <header> 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light ps-2" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); user-select: none">
-            <a class="navbar-brand poppins-bold" href="/ambiente_usuario">Área do Cliente</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link poppins-medium" href="/">Home</span></a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-    </header>
-
-    <div class="div-login">
-
-      <label for="codigo-acesso" class="poppins-medium">Origem da Entrega</label>
-      <select name="cars" id="cars" class="input-campo">
-          <option value="volvo">Perim - Gilberto Machado</option>
-          <option value="saab">Perim - Jones dos Santos Neves</option>
-          <option value="mercedes">Perim - Guandu</option>
-          <option value="audi">Perim Center</option>
-      </select>
-  
-      <div id="pontos-entrega">
-          <!-- Contêiner inicial para Ponto A -->
-          <div style="margin-bottom: 10px;">
-              <label for="ponto-a" class="poppins-medium" style="margin-bottom: 5px; display: block;">Ponto A</label>
-              <div style="display: flex; align-items: center;">
-                  <input type="text" id="ponto-a" name="ponto-a" class="input-campo" placeholder="Digite o primeiro ponto de entrega" style="flex: 1;">
-                  <a href="#" class="botao-mais" id="adicionar-ponto" style="margin-left: 7px;">
-                      <img src="/static/img/plus.png" style="width: 20px; margin-bottom: 10px">
-                  </a>
-              </div>
-          </div>
-      </div>
-  
-      <button type="button" class="botao-acessar poppins-bold">
-          <a href="/ambiente_usuario" class="text-white text-decoration-none poppins-medium">GERAR ROTA</a>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ps-2"
+      style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); user-select: none">
+      <a class="navbar-brand poppins-bold" href="/ambiente_usuario">Área do Cliente</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText">
+        <span class="navbar-toggler-icon"></span>
       </button>
-  
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link poppins-medium" href="/">Home</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="div-login">
+
+    <label for="codigo-acesso" class="poppins-medium">Origem da Entrega</label>
+    <select name="cars" id="origem-entrega" class="input-campo">
+      <option value="volvo">Perim - Gilberto Machado</option>
+      <option value="saab">Perim - Jones dos Santos Neves</option>
+      <option value="mercedes">Perim - Guandu</option>
+      <option value="audi">Perim Center</option>
+    </select>
+
+
+    <!-- Pontos de Entrega -->
+    <label class="poppins-medium">Pontos de Entrega</label>
+    <div id="pontos-entrega">
+      <!-- Os pontos iniciais e os novos serão adicionados aqui -->
+      <div class="ponto-entrega" style="margin-bottom: 10px;">
+        
+      </div>
+    </div>
+
+    <!-- Botão para adicionar novos pontos -->
+    <a href="#" class="botao-mais" id="adicionar-ponto" style="margin-left: 7px;">
+      <img src="../img/plus.png" style="width: 20px; margin-bottom: 10px">
+    </a>
+
+    <button type="button" class="botao-acessar poppins-bold">
+      <a href="/ambiente_usuario" class="text-white text-decoration-none poppins-medium">GERAR ROTA</a>
+    </button>
+
   </div>
 
   <div id="map" style="height: 543px; width: 50%;" class="align-content-end position-absolute top-1 end-0 pe-2">
     <script>
       // Inicializar o mapa com as coordenadas da cidade de Cachoeiro de Itapemirim
-      const map = L.map('map').setView([ -20.8494, -41.1132], 13); // Coordenadas para Cachoeiro de Itapemirim
-  
+      const map = L.map('map').setView([-20.8494, -41.1132], 13); // Coordenadas para Cachoeiro de Itapemirim
+
       // Adicionar a camada de tiles (OpenStreetMap)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
-  
+
       // Criar a rota com o Leaflet Routing Machine
       L.Routing.control({
         waypoints: [
-          L.latLng( -20.8494, -41.1132), 
+          L.latLng(-20.8494, -41.1132),
         ],
         routeWhileDragging: true
       }).addTo(map);
@@ -83,49 +90,52 @@
     const pontosEntrega = document.getElementById('pontos-entrega');
 
     function atualizarRotulos() {
-        const pontos = document.querySelectorAll('.ponto-entrega');
-        pontos.forEach((ponto, index) => {
-            const letra = String.fromCharCode(66 + index); 
-            const label = ponto.querySelector('label');
-            label.textContent = `Ponto ${letra}`;
-            const input = ponto.querySelector('input');
-            input.id = `ponto-${letra}`;
-            input.name = `ponto-${letra}`;
-        });
+      const pontos = document.querySelectorAll('.ponto-entrega');
+      pontos.forEach((ponto, index) => {
+        const letra = String.fromCharCode(66 + index);
+        const label = ponto.querySelector('label');
+        label.textContent = `Ponto ${letra}`;
+        const input = ponto.querySelector('input');
+        input.id = `ponto-${letra}`;
+        input.name = `ponto-${letra}`;
+      });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const primeiroPonto = document.querySelector('#pontos-entrega .ponto-entrega');
-        if (primeiroPonto) {
-            primeiroPonto.querySelector('label').textContent = 'Ponto A';
-        }
+    document.addEventListener('DOMContentLoaded', async () => {
+      await carregarEnderecos();
+      const primeiroPonto = document.querySelector('#pontos-entrega .ponto-entrega');
+      if (primeiroPonto) {
+        atualizarRotulos();
+        primeiroPonto.querySelector('label').textContent = 'Ponto A';
+      }
     });
 
-    document.getElementById('adicionar-ponto').addEventListener('click', function (event) {
-        event.preventDefault(); 
 
-        const novoPonto = document.createElement('div');
-        novoPonto.style.marginBottom = '10px'; 
-        novoPonto.classList.add('ponto-entrega'); 
-        novoPonto.innerHTML = `
+    document.getElementById('adicionar-ponto').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const novoPonto = document.createElement('div');
+      novoPonto.style.marginBottom = '10px';
+      novoPonto.classList.add('ponto-entrega');
+      novoPonto.innerHTML = `
             <label class="poppins-medium" style="margin-bottom: 5px; display: block;"></label>
             <div style="display: flex; align-items: center;">
                 <input type="text" class="input-campo" placeholder="Digite o ponto de entrega" style="flex: 1;">
                 <a href="#" class="botao-mais botao-remover" style="margin-left: 7px;">
-                    <img src="/static/img/minus.png" style="width: 20px; margin-bottom: 10px">
+                    <img src="../img/minus.png" style="width: 20px; margin-bottom: 10px">
                 </a>
             </div>
         `;
 
-        pontosEntrega.appendChild(novoPonto);
-        atualizarRotulos();
+      pontosEntrega.appendChild(novoPonto);
+      atualizarRotulos();
 
-        const botaoRemover = novoPonto.querySelector('.botao-remover');
-        botaoRemover.addEventListener('click', function (event) {
-            event.preventDefault(); 
-            pontosEntrega.removeChild(novoPonto); 
-            atualizarRotulos(); 
-        });
+      const botaoRemover = novoPonto.querySelector('.botao-remover');
+      botaoRemover.addEventListener('click', function (event) {
+        event.preventDefault();
+        pontosEntrega.removeChild(novoPonto);
+        atualizarRotulos();
+      });
     }); 
   </script>
 
